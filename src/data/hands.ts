@@ -1,3 +1,4 @@
+
 const hands = [
   {
     highCard: 'A',
@@ -43,13 +44,13 @@ const hands = [
   },
   {
     highCard: 'A',
-    lowCard: 'T',
+    lowCard: '0',
     suited: true,
     class: 4
   },
   {
     highCard: 'A',
-    lowCard: 'T',
+    lowCard: '0',
     suited: false,
     class: 2
   },
@@ -182,13 +183,13 @@ const hands = [
   },
   {
     highCard: 'K',
-    lowCard: 'T',
+    lowCard: '0',
     suited: true,
     class: 4
   },
   {
     highCard: 'K',
-    lowCard: 'T',
+    lowCard: '0',
     suited: false,
     class: 2
   },
@@ -309,13 +310,13 @@ const hands = [
   },
   {
     highCard: 'Q',
-    lowCard: 'T',
+    lowCard: '0',
     suited: true,
     class: 4
   },
   {
     highCard: 'Q',
-    lowCard: 'T',
+    lowCard: '0',
     suited: false,
     class: 2
   },
@@ -424,13 +425,13 @@ const hands = [
   },
   {
     highCard: 'J',
-    lowCard: 'T',
+    lowCard: '0',
     suited: true,
     class: 4
   },
   {
     highCard: 'J',
-    lowCard: 'T',
+    lowCard: '0',
     suited: false,
     class: 2
   },
@@ -532,103 +533,103 @@ const hands = [
   },
   // TEN
   {
-    highCard: 'T',
-    lowCard: 'T',
+    highCard: '0',
+    lowCard: '0',
     suited: false,
     class: 4
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '9',
     suited: true,
     class: 3
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '9',
     suited: false,
     class: 1
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '8',
     suited: true,
     class: 2
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '8',
     suited: false,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '7',
     suited: true,
     class: 1
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '7',
     suited: false,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '6',
     suited: true,
     class: 1
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '6',
     suited: false,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '5',
     suited: true,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '5',
     suited: false,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '4',
     suited: true,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '4',
     suited: false,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '3',
     suited: true,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '3',
     suited: false,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '2',
     suited: true,
     class: 0
   },
   {
-    highCard: 'T',
+    highCard: '0',
     lowCard: '2',
     suited: false,
     class: 0
@@ -1025,15 +1026,27 @@ const hands = [
     suited: false,
     class: 2
   },
-]
+] as handType[]
+
+export const mappedHands: Hand[] = hands.map(h => {
+  return {
+    hand: `${h.highCard}${h.lowCard}${h.suited ? 's' : 'o'}`,
+    rank: h.class
+  }
+})
+
+export const cardOrder = ['A', 'K', 'Q', 'J', '0', '9', '8', '7', '6', '5', '4', '3', '2']
+
+export interface Hand {
+  hand: string,
+  rank: number
+}
+
+interface handType {
+  highCard: string,
+  lowCard: string,
+  suited: boolean,
+  class: number
+}
 
 export default hands
-
-/*
-{
-    highCard: 'A',
-    lowCard: 'Q',
-    suited: true,
-    pair: false
-  },
-*/

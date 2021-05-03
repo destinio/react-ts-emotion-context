@@ -1,9 +1,10 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react'
+import { cardOrder, mappedHands } from 'src/data/hands'
 
 interface DeckTypes {
   drawCards: () => any,
   deck?: DeckType
-  cards?: CardType[]
+  cards?: FinalHand
 }
 
 const DeckContext = createContext<DeckTypes>(null!)
@@ -14,9 +15,15 @@ interface DeckProps {
   children: ReactNode
 }
 
+interface FinalHand {
+  data: CardType[]
+  hand: string
+  rank: any
+}
+
 export function DeckProvider({children}:DeckProps) {
   const [deck, setDeck] = useState<DeckType>()
-  const [cards, setCards] = useState<CardType[]>()
+  const [cards, setCards] = useState<FinalHand>()
 
   useEffect(() => {
     async function getDeck() {
@@ -34,9 +41,26 @@ export function DeckProvider({children}:DeckProps) {
     const data = await response.json()
     setDeck(data)
 
-    const {cards} = data
+    const cards = data.cards.map((c:CardType) => {
+        return { ...c, code: c.code.split('').shift() }
+      }).sort((a:CardType, b:CardType) => {
+        const c1 = cardOrder.indexOf(a.code) + 1
+        const c2 = cardOrder.indexOf(b.code) + 1
+        return c1 - c2
+      }) as CardType[]
 
-    setCards([cards[0], cards[1]])
+    const suited = cards[0].suit === cards[1].suit
+    const hand = `${cards[0].code}${cards[1].code}${suited ? "s" : "o"}`
+
+    const newCards = {
+      data: [...cards],
+      hand,
+      rank: mappedHands.find(h => {
+        return h.hand === hand
+      })?.rank
+    }
+
+    setCards(newCards)
   }
 
   const value = {
